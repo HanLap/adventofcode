@@ -28,6 +28,7 @@ def parse_input():
 
         return (draws, boards)
 
+
 def print_boards(boards):
     for board in boards:
         for line in board:
@@ -42,6 +43,7 @@ def apply_nr(drawn, boards):
                 nr, _ = line[i]
                 if nr == drawn:
                     line[i] = (nr, True) 
+
 
 def check_if_board_won(board):
     # check row
@@ -59,32 +61,25 @@ def check_if_board_won(board):
             return True
     return False
 
+
 def calculate_score(drawn, board):
     flat = [col for line in board for col in line]
-
     unmarked = reduce(lambda acc, col: acc + col[0] if not col[1] else acc, flat, 0)
-    print(unmarked)
     return unmarked * drawn
 
 
 def main():
     draws, boards = parse_input()
 
-    win_history = []
-    draw_history = []
     for drawn in draws:
-        draw_history.append(drawn)
         apply_nr(drawn, boards)
 
         for board in boards:
             if check_if_board_won(board):
                 boards.remove(board)
-                win_history.append(board)
                 if len(boards) == 0:
-                    print(draw_history)
                     print("board wins last:")
                     print_boards([board])
-                    print(drawn)
                     print(calculate_score(drawn, board))
                     return
 
