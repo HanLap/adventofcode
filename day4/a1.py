@@ -1,7 +1,9 @@
 from functools import reduce
 
+
 def parse_line(line):
     return [(int(line[i:i+2]), False) for i in range(0, len(line), 3)]
+
 
 def parse_input():
     with open('input', 'r') as input:
@@ -25,8 +27,8 @@ def parse_input():
                 board.append(parse_line(line.replace('\n', '')))
                 i += 1
 
-
         return (draws, boards)
+
 
 def print_boards(boards):
     for board in boards:
@@ -42,6 +44,7 @@ def apply_nr(drawn, boards):
                 nr, _ = line[i]
                 if nr == drawn:
                     line[i] = (nr, True) 
+
 
 def check_if_board_won(board):
     # check row
@@ -59,9 +62,9 @@ def check_if_board_won(board):
             return True
     return False
 
+
 def calculate_score(drawn, board):
     flat = [col for line in board for col in line]
-
     unmarked = reduce(lambda acc, col: acc + col[0] if not col[1] else acc, flat, 0)
     return unmarked * drawn
 

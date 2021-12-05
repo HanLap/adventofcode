@@ -1,7 +1,9 @@
 from functools import reduce
 
+
 def parse_line(line):
     return [(int(line[i:i+2]), False) for i in range(0, len(line), 3)]
+
 
 def parse_input():
     with open('input', 'r') as input:
@@ -24,7 +26,6 @@ def parse_input():
             else:
                 board.append(parse_line(line.replace('\n', '')))
                 i += 1
-
 
         return (draws, boards)
 
